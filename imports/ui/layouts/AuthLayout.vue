@@ -10,6 +10,7 @@
       <div class="text-center">
         <img src="/img/vuetify.png" alt="Vuetify" height="180px" width="auto" />
       </div>
+      <router-view name="sectionView"></router-view>
       <div class="text-center">
         <img src="/img/Powered.png" alt="Powered" height="35px" />
       </div>

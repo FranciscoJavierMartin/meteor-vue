@@ -21,7 +21,9 @@
         type="password"
       />
       <div class="d-flex justify-end">
-        <v-btn color="primary" text small>Forgot password?</v-btn>
+        <v-btn :to="{ name: 'forgotPassword' }" color="primary" text small
+          >Forgot password?</v-btn
+        >
       </div>
       <div class="d-flex justify-start">
         <v-btn type="submit" rounded color="primary" transition="fade">

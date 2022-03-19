@@ -17,3 +17,10 @@ export default {
   name: 'SPALayout',
 };
 </script>
+
+<style scoped>
+#main_section {
+  margin-bottom: 80px;
+  position: relative;
+}
+</style>

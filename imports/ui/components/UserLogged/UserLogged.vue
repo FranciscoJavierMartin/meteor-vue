@@ -7,7 +7,7 @@
       </v-btn>
     </template>
     <v-list>
-      <v-list-item href="#">Account</v-list-item>
+      <v-list-item href="#" :to="{ name: 'Account' }">Account</v-list-item>
       <v-list-item href="#">Logout</v-list-item>
     </v-list>
   </v-menu>

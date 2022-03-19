@@ -14,6 +14,7 @@
           v-for="option in options"
           :key="option.title"
           v-text="option.title"
+          :to="{ name: option.nameRoute }"
         >
           <h1>Hello</h1>
         </v-tab>
@@ -37,6 +38,7 @@ export default {
         {
           icon: 'home',
           title: 'Home',
+          nameRoute: 'Home',
         },
         {
           icon: 'person',

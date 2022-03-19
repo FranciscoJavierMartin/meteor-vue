@@ -1,6 +1,7 @@
 import loginRoutes from './loginRoutes';
 import SPALayout from '../layouts/SPALayout.vue';
 import Home from '../pages/home/Home.vue';
+import AccountSettings from '../pages/account/AccountSettings.vue';
 
 export default [
   {
@@ -19,6 +20,13 @@ export default [
         path: '',
         components: {
           sectionView: Home,
+        },
+      },
+      {
+        name: 'Account',
+        path: '/account',
+        components: {
+          sectionView: AccountSettings,
         },
       },
     ],

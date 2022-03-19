@@ -1,4 +1,5 @@
 import loginRoutes from './loginRoutes';
+import usersRoutes from './usersRoutes';
 import SPALayout from '../layouts/SPALayout.vue';
 import Home from '../pages/home/Home.vue';
 import AccountSettings from '../pages/account/AccountSettings.vue';
@@ -29,6 +30,7 @@ export default [
           sectionView: AccountSettings,
         },
       },
+      usersRoutes,
     ],
   },
 ];

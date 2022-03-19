@@ -43,6 +43,7 @@ export default {
         {
           icon: 'person',
           title: 'Users',
+          nameRoute: 'Users'
         },
         {
           icon: 'user-tag',

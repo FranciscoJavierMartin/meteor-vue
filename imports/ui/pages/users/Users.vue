@@ -25,6 +25,36 @@
             sort-by="name"
             class="elevation-1"
           >
+            <template v-slot:item.action="{ item }">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-icon
+                    color="info"
+                    v-on="on"
+                    small
+                    class="mr-2"
+                    @click="openUpdateUser(item)"
+                  >
+                    edit
+                  </v-icon>
+                </template>
+                <span>Update</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-icon
+                    color="red"
+                    v-on="on"
+                    small
+                    class="mr-2"
+                    @click="openRemoveModal(item)"
+                  >
+                    delete
+                  </v-icon>
+                </template>
+                <span>Remove</span>
+              </v-tooltip>
+            </template>
             <template v-slot:body.append="{ isMobile }">
               <tr v-if="!isMobile">
                 <td>
@@ -51,6 +81,11 @@
               </tr>
             </template>
           </v-data-table>
+          <modal-remove
+            ref="refModalRemove"
+            v-bind:modalData="userTemp"
+            @id_element="deleteUser"
+          />
         </div>
         <router-view name="usersOptionsView" />
       </v-col>
@@ -59,8 +94,13 @@
 </template>
 
 <script>
+import ModalRemove from '../../components/utilities/Modals/ModalRemove.vue';
+
 export default {
   name: 'Users',
+  components: {
+    ModalRemove,
+  },
   data() {
     return {
       headersFilter: {
@@ -70,22 +110,32 @@ export default {
       },
       users: [
         {
+          _id: 1,
           name: 'Peter Parker',
           username: 'Spider Man',
           email: 'peter@parker.com',
         },
         {
+          _id: 2,
           name: 'Tony Stark',
           username: 'Iron Man',
           email: 'tony@stark.com',
         },
         {
+          _id: 3,
           name: 'Steve Rogers',
           username: 'Capitan America',
           email: 'steve@rogers.com',
         },
       ],
       activeMainView: true,
+      userTemp: {
+        preposition: 'al',
+        typeElement: 'user',
+        mainNameElement: '',
+        _id: '',
+        element: {},
+      },
     };
   },
   computed: {
@@ -130,6 +180,11 @@ export default {
             );
           },
         },
+        {
+          value: 'action',
+          text: 'Options',
+          sortable: false,
+        },
       ];
     },
   },
@@ -137,6 +192,17 @@ export default {
     updateMainView() {
       const currentRoute = this.$router.currentRoute.name;
       this.activeMainView = currentRoute === 'Users';
+    },
+    openUpdateUser(user) {
+      this.$router.push({ name: 'UsersUpdate' });
+    },
+    deleteUser(idUser) {},
+    openRemoveModal(user) {
+      this.userTemp.element = user;
+      this.userTemp._id = user._id;
+      this.userTemp.title = 'Remove user';
+      this.userTemp.message = `Are you sure to remove ${user.name}?`;
+      this.$refs.refModalRemove.dialog = true;
     },
   },
   watch: {

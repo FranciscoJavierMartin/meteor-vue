@@ -2,12 +2,16 @@
   <v-container>
     <v-row>
       <v-col>
-        <div class="headline">Create user</div>
+        <div class="headline">{{ dataView.title }}</div>
       </v-col>
       <v-col cols="2">
-        <v-btn block type="submit" form="saveUser" color="primary">
-          Create
-        </v-btn>
+        <v-btn
+          block
+          type="submit"
+          form="saveUser"
+          color="primary"
+          v-text="dataView.targetButton"
+        />
       </v-col>
     </v-row>
     <v-row>
@@ -84,10 +88,23 @@ export default {
           description: 'User',
         },
       ],
+      dataView: {
+        title: '',
+        targetButton: '',
+      },
     };
   },
   methods: {
     saveUser() {},
+  },
+  created() {
+    if (this.$router.currentRoute.name === 'UsersUpdate') {
+      this.dataView.title = 'Update user';
+      this.dataView.targetButton = 'Update';
+    } else if (this.$router.currentRoute.name === 'UsersCreate') {
+      this.dataView.title = 'Create user';
+      this.dataView.targetButton = 'Create';
+    }
   },
 };
 </script>

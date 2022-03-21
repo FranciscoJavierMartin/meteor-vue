@@ -2,6 +2,22 @@
   <v-container>
     <v-row justify="center">
       <v-col xs="12" sm="8" md="6" lg="5" xl="5">
+        <div class="d-flex flex-row-reverse mb-5">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                color="success"
+                v-on="on"
+                fab
+                dark
+                :to="{ name: 'ProfilesCreate' }"
+              >
+                <v-icon>add</v-icon>
+              </v-btn>
+            </template>
+            <span>Add profile</span>
+          </v-tooltip>
+        </div>
         <v-data-table
           :headers="headers"
           :items="profiles"
@@ -11,7 +27,13 @@
           <template v-slot:item.action="{ item }">
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
-                <v-icon color="info" v-on="on" small class="mr-2">
+                <v-icon
+                  color="info"
+                  v-on="on"
+                  small
+                  class="mr-2"
+                  @click="openUpdateProfile(item)"
+                >
                   edit
                 </v-icon>
               </template>
@@ -34,7 +56,7 @@
 
 <script>
 export default {
-  name: 'Profiles',
+  name: 'ListProfiles',
   data() {
     return {
       headers: [
@@ -54,6 +76,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    openUpdateProfile(profile) {
+      this.$router.push({ name: 'ProfilesUpdate' });
+    },
   },
 };
 </script>

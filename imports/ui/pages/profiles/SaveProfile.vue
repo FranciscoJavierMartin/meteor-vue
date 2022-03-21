@@ -8,7 +8,7 @@
         <v-btn
           block
           type="submit"
-          form="saveUser"
+          form="saveProfile"
           color="primary"
           v-text="dataView.targetButton"
         />
@@ -18,7 +18,11 @@
       <v-col>
         <v-card>
           <v-card-text>
-            <v-form @submit.prevent="saveUser" id="saveUser" autocomplete="off">
+            <v-form
+              @submit.prevent="saveProfile"
+              id="saveProfile"
+              autocomplete="off"
+            >
               <v-row>
                 <v-col xs="12" sm="12" md="4">
                   <img
@@ -29,32 +33,17 @@
                 </v-col>
                 <v-col xs="12" sm="12" md="8">
                   <v-text-field
-                    v-model="user.name"
+                    v-model="profile.name"
                     id="inputName"
                     name="name"
                     label="Name"
                   />
-                  <v-select
-                    v-model="user.profile"
-                    id="selectProfile"
-                    :items="profiles"
-                    item-text="description"
-                    item-value="name"
-                    name="profile"
-                    label="Profile"
-                  />
+
                   <v-text-field
-                    v-model="user.username"
-                    id="inputUsername"
-                    name="username"
-                    label="Username"
-                  />
-                  <v-text-field
-                    v-model="user.email"
-                    id="inputEmail"
-                    type="email"
-                    name="email"
-                    label="Email"
+                    v-model="profile.description"
+                    id="inputDescription"
+                    name="description"
+                    label="Description"
                   />
                 </v-col>
               </v-row>
@@ -68,26 +57,15 @@
 
 <script>
 export default {
-  name: 'SaveUser',
+  name: 'SaveProfile',
   data() {
     return {
-      user: {
+      profile: {
         _id: '',
         name: '',
-        username: '',
-        email: '',
-        profile: '',
+        description: '',
+        permissions: [],
       },
-      profiles: [
-        {
-          name: 'admin',
-          description: 'Admin',
-        },
-        {
-          name: 'chat',
-          description: 'User',
-        },
-      ],
       dataView: {
         title: '',
         targetButton: '',
@@ -95,13 +73,13 @@ export default {
     };
   },
   methods: {
-    saveUser() {},
+    saveProfile() {},
     updateTexts() {
-      if (this.$router.currentRoute.name === 'UsersUpdate') {
-        this.dataView.title = 'Update user';
+      if (this.$router.currentRoute.name === 'ProfilesUpdate') {
+        this.dataView.title = 'Update profile';
         this.dataView.targetButton = 'Update';
-      } else if (this.$router.currentRoute.name === 'UsersCreate') {
-        this.dataView.title = 'Create user';
+      } else if (this.$router.currentRoute.name === 'ProfilesCreate') {
+        this.dataView.title = 'Create profile';
         this.dataView.targetButton = 'Create';
       }
     },

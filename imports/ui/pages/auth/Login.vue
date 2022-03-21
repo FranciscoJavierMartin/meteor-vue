@@ -31,18 +31,12 @@
         </v-btn>
       </div>
     </v-form>
-    <alert-message ref="refAlertMessage" />
   </div>
 </template>
 
 <script>
-import AlertMessage from '../../components/utilities/Alerts/AlertMessage.vue';
-
 export default {
   name: 'Login',
-  components: {
-    AlertMessage,
-  },
   data() {
     return {
       user: {
@@ -52,7 +46,13 @@ export default {
     };
   },
   methods: {
-    login() {},
+    login() {
+      this.$loader.activate();
+      setTimeout(() => {
+        this.$loader.deactivate();
+        this.$alert.showAlertSimple('error', 'Invalid login');
+      }, 2000);
+    },
   },
 };
 </script>

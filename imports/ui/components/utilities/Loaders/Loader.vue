@@ -26,5 +26,8 @@ export default {
       this.loader = false;
     },
   },
+  mounted() {
+    Vue.prototype.$loader = this;
+  },
 };
 </script>

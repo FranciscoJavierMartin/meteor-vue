@@ -81,6 +81,9 @@ export default {
       this.text = text;
     },
   },
+  mounted() {
+    Vue.prototype.$alert = this;
+  },
 };
 </script>
 

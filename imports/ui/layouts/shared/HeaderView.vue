@@ -14,7 +14,7 @@
           v-for="option in options"
           :key="option.title"
           v-text="option.title"
-          :to="{ name: option.nameRoute }"
+          @click="goToView(option)"
         >
           <h1>Hello</h1>
         </v-tab>
@@ -52,6 +52,26 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    goToView(option) {
+      this.$router.push({ name: option.nameRoute });
+    },
+    updateSelectedOption() {
+      const optionSelectedIndex = this.options.findIndex(
+        (option) => option.nameRoute === this.$route.name
+      );
+      this.optionSelected =
+        optionSelectedIndex === -1 ? 0 : optionSelectedIndex;
+    },
+  },
+  created() {
+    this.updateSelectedOption();
+  },
+  watch: {
+    '$route.name'() {
+      this.updateSelectedOption();
+    },
   },
 };
 </script>

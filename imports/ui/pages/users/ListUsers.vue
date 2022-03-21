@@ -85,7 +85,6 @@
           v-bind:modalData="userTemp"
           @id_element="deleteUser"
         />
-        
       </v-col>
     </v-row>
   </v-container>
@@ -126,7 +125,6 @@ export default {
           email: 'steve@rogers.com',
         },
       ],
-
       userTemp: {
         preposition: 'al',
         typeElement: 'user',

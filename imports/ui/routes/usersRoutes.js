@@ -1,26 +1,28 @@
-import Users from '../pages/users/Users.vue';
+import ListUsers from '../pages/users/ListUsers.vue';
 import SaveUser from '../pages/users/SaveUser.vue';
 
 export default {
-  name: 'Users',
   path: '/users',
   components: {
-    sectionView: Users,
+    sectionView: {
+      render: (c) => c('router-view'),
+    },
   },
   children: [
     {
+      name: 'ListUsers',
+      path: '',
+      component: ListUsers,
+    },
+    {
       name: 'UsersCreate',
       path: 'create',
-      components: {
-        usersOptionsView: SaveUser,
-      },
+      component: SaveUser,
     },
     {
       name: 'UsersUpdate',
       path: 'update',
-      components: {
-        usersOptionsView: SaveUser,
-      },
+      component: SaveUser,
     },
   ],
 };

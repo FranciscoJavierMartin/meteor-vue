@@ -43,11 +43,12 @@ export default {
         {
           icon: 'person',
           title: 'Users',
-          nameRoute: 'Users'
+          nameRoute: 'Users',
         },
         {
           icon: 'user-tag',
           title: 'Profiles',
+          nameRoute: 'Profiles',
         },
       ],
     };

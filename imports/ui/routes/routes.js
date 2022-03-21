@@ -3,6 +3,7 @@ import usersRoutes from './usersRoutes';
 import SPALayout from '../layouts/SPALayout.vue';
 import Home from '../pages/home/Home.vue';
 import AccountSettings from '../pages/account/AccountSettings.vue';
+import profilesRoutes from './profilesRoutes';
 
 export default [
   {
@@ -31,6 +32,7 @@ export default [
         },
       },
       usersRoutes,
+      profilesRoutes,
     ],
   },
 ];

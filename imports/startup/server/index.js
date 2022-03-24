@@ -1,1 +1,2 @@
-import '/imports/startup/server'
+import '../../api/users/UsersController';
+import '../../api/users/UsersPubs';

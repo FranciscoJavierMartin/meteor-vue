@@ -3,9 +3,16 @@ import { check, Match } from 'meteor/check';
 import { ResponseMessage } from '../../startup/server/utilities/ResponseMessage';
 import { Profile } from './Profile';
 import ProfilesService from './ProfilesService';
+import Permissions from '../../startup/server/Permissions';
 
 new ValidatedMethod({
   name: 'profile.save',
+  mixins: [MethodHooks],
+  permissions: [
+    Permissions.PROFILES.CREATE.VALUE,
+    Permissions.USERS.UPDATE.VALUE,
+  ],
+  beforeHooks: [AuthGuard.checkPermission],
   validate(profile) {
     try {
       check(profile, {
@@ -71,6 +78,9 @@ new ValidatedMethod({
 
 new ValidatedMethod({
   name: 'profile.delete',
+  mixins: [MethodHooks],
+  permissions: [Permissions.PROFILES.DELETE.VALUE],
+  beforeHooks: [AuthGuard.checkPermission],
   validate({ idProfile }) {
     try {
       check(idProfile, String);

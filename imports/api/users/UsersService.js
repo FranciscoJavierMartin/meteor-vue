@@ -1,3 +1,5 @@
+import ProfilesService from '../profiles/ProfilesService';
+
 export default {
   validateEmail(email, idUser) {
     const existsEmail = Accounts.findUserByEmail(email);
@@ -24,11 +26,15 @@ export default {
     }
   },
   createUser(user) {
-    Accounts.createUser({
+    const idUser = Accounts.createUser({
       username: user.username,
       email: user.emails[0].address,
       profile: user.profile,
     });
+
+    if (idUser) {
+      ProfilesService.setUserRoles(idUser, user.profile.profile);
+    }
   },
   updateUser(user) {
     const currentUser = Meteor.users.findOne(user._id);
@@ -48,5 +54,7 @@ export default {
         },
       },
     });
+
+    ProfilesService.setUserRoles(user._id, profile.profile);
   },
 };

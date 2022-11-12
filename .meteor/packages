@@ -28,3 +28,4 @@ accounts-password
 mdg:validated-method
 peerlibrary:middleware
 alanning:roles
+lacosta:method-hooks

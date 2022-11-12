@@ -2,9 +2,29 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { check, Match } from 'meteor/check';
 import { ResponseMessage } from '../../startup/server/utilities/ResponseMessage';
 import UsersService from './UsersService';
+import * as AuthGuard from '../../middlewares/AuthGuard';
+import Permissions from '../../startup/server/Permissions';
+
+Accounts.validateLoginAttempt((loginAttempt) => {
+  if (loginAttempt.allowed) {
+    const loginTokensOfUser = loginAttempt.services.resume?.loginTokens || [];
+    if (loginTokensOfUser.length > 1) {
+      Meteor.users.update(loginAttempt.user._id, {
+        $set: {
+          'services.resume.loginTokens': [loginTokensOfUser.pop()],
+        },
+      });
+    }
+
+    return true;
+  }
+});
 
 new ValidatedMethod({
   name: 'user.save',
+  mixins: [MethodHooks],
+  permissions: [Permissions.USERS.CREATE.VALUE, Permissions.USERS.UPDATE.VALUE],
+  beforeHooks: [AuthGuard.checkPermission],
   validate(user) {
     try {
       check(user, {
@@ -52,6 +72,9 @@ new ValidatedMethod({
 
 new ValidatedMethod({
   name: 'user.delete',
+  mixins: [MethodHooks],
+  permissions: [Permissions.USERS.DELETE.VALUE],
+  beforeHooks: [AuthGuard.checkPermission],
   validate({ idUser }) {
     try {
       check(idUser, String);
@@ -65,6 +88,8 @@ new ValidatedMethod({
 
     try {
       Meteor.users.remove(idUser);
+      Meteor.roleAssignment.remove({ 'user._id': idUser });
+      responseMessage.create('User removed');
     } catch (exception) {
       console.error('user.delete', exception);
       throw new Meteor.Error('500', 'Error removing user');
